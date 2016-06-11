@@ -29,30 +29,7 @@ function getData(cb){
  */ 
 function drawBoard(state){
 
-   /* var canvas = $("#canvas"); 
-
-    // Change the height and width of the board here...
-    // everything else should adapt to an adjustable
-    // height and width.
-    var W = 600, H = 800; 
-    canvas.css("height", H); 
-    canvas.css("width", W); 
-
-    // The actual SVG element to add to. 
-    // we make a jQuery object out of this, so that 
-    // we can manipulate it via calls to the jQuery API. 
-    var svg = $(makeSVG(W, H));
-    var circle = $(makeCircle(3, 5, 15, "red"));
-
-    // TODO: Implement board drawing. 
-    
-    //  You will want to append elements to the 
-    //  svg variable using the svg.append(....) 
-    //  method. 
-
-    // append the svg object to the canvas object.
-    canvas.append(svg);
-    svg.append(circle);*/
+  
     var canvas = $("#canvas"); 
 
     // Change the height and width of the board here...
@@ -67,28 +44,28 @@ function drawBoard(state){
     // we can manipulate it via calls to the jQuery API. 
     var svg = $(makeSVG(W, H));
 
-    // Variables
-    var size = state.size;
-    var grid = W/size;
+    // get board size and grid size
+    var boardSize = state.size;
+    var boardGrid = W/boardSize;
 
-    // Draws brown board background
+    // Fill in board background
    svg.append(makeRectangle(0, 0, 600, 600, '#c19a6b'))
 
-    //Draws lines to make the board grid
-    for(var i = 0; i < size; i++) {
-        svg.append(makeLine((grid*i)+(grid/2), 0, (grid*i)+(grid/2), 600, "black", 2));
+    //Create lines on the board
+    for(var i = 0; i < boardSize; i++) {
+        svg.append(makeLine((boardGrid*i)+(boardGrid/2), 0, (boardGrid*i)+(boardGrid/2), 600, "black", 2));
     }
-    for(var i = 0; i < size; i++) {
-        svg.append(makeLine(0, (grid*i)+(grid/2), 600, (grid*i)+(grid/2), "black", 2));
+    for(var i = 0; i < boardSize; i++) {
+        svg.append(makeLine(0, (boardGrid*i)+(boardGrid/2), 600, (boardGrid*i)+(boardGrid/2), "black", 2));
     }
  
-    //Draws all of the circles
-    for(var i = 0; i < size; i++) {
-        for(var j = 0; j < size; j++) {
+    //Draw black and white board pieces
+    for(var i = 0; i < boardSize; i++) {
+        for(var j = 0; j < boardSize; j++) {
             if(state.board[i][j] == 1) {
-                svg.append(makeCircle((grid*j)+(grid/2), (grid*i)+(grid/2), grid/2.5, '#000000'));
+                svg.append(makeCircle((boardGrid*j)+(boardGrid/2), (boardGrid*i)+(boardGrid/2), boardGrid/2.5, '#000000'));
             }else if(state.board[i][j] == 2) {
-                svg.append(makeCircle((grid*j)+(grid/2), (grid*i)+(grid/2), grid/2.5, '#ffffff'));
+                svg.append(makeCircle((boardGrid*j)+(boardGrid/2), (boardGrid*i)+(boardGrid/2), boardGrid/2.5, '#ffffff'));
             }
         }
     }
