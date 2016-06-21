@@ -8,6 +8,12 @@ var http = require("http");
     // See https://nodejs.org/api/http.html#http_http_request_options_callback
 
     req = http.request(options, callback);
+    var postData = {
+	//firstDataKey: 'firstDataValue'
+	'size': size,
+	'board': board,
+	'last': lastMove,
+}
 
 var options = {
 
@@ -17,24 +23,23 @@ var options = {
 	method: 'POST',
 	headers: {
     'Content-Type': 'application/json' 
-  }
+    //'Content-Length': Buffer.byteLength(postData)
+  },
 }
 
 var callback = function(response){
-	var str;
+	//var str;
 	response.on('data', function(chunk){
-		str+= chunk;
-		console.log(chunk.toString());
+		//str+= chunk;
+		//console.log(chunk.toString());
+		console.log('made it here');
 	});
 	response.on('end', function(){
-		console.log(str);
+		//console.log(str);
 		console.log('no  more data')
 	});
 }
 
-var postData = {
-	firstDataKey: 'firstDataValue'
-}
 
 
 
@@ -43,7 +48,7 @@ req.on('error', (e) => {
 });
 
 // write data to request body
-req.write(postData.toString());
+req.write(JSON.stringify(postData));
 req.end();
 
 
