@@ -1,5 +1,5 @@
 var assert = require('assert');
-var blanket = require('blanket');
+//var blanket = require('blanket');
 function stringToArray(str){
 	return str.split(',');
 }
